@@ -24,7 +24,7 @@ namespace Core.Aspects.Autofac.Validation
         }
         protected override void OnBefore(IInvocation invocation)
         {
-            //Gönderilen validator'u getirir.örn:ProductValidator'u getiriyor
+            //Gönderilen validator'u getirir.örn:ProductValidator'u getiriyor.Çalışma anında instance oluşturmak için activator.createinstance kullanılır.
             var validator = (IValidator)Activator.CreateInstance(_validatorType);
             //örn:productValidator'un BaseType'ı AbstractValidator generic arguments'i yani <Product> entityType Product'a denk gelir.
             var entityType = _validatorType.BaseType.GetGenericArguments()[0];

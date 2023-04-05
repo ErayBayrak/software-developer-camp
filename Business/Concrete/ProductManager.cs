@@ -3,6 +3,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -20,37 +21,48 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
         IProductDal _productDal;
+        ICategoryService _categoryService;
 
-        public ProductManager(IProductDal productDal)
+        public ProductManager(IProductDal productDal,ICategoryService categoryService)
         {
             _productDal = productDal;
+            _categoryService = categoryService;
         }
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            
-            
+            IResult result=BusinessRules.Run(
+                CheckIfProductCountOfCategoryCorrect(product.CategoryId), 
+                CheckIfProductNameUniqueCorrect(product.ProductName),
+                CheckIfCategoryLimitExceded()
+                );
+            if (result != null)
+            {
+                return result;
+            }
             _productDal.Add(product);
-            return new SuccessResult(Messages.ProductAdded);
+            return new SuccessResult(Messages.Added);
+          
         }
 
-        public void Delete(Product product)
+        public IResult Delete(Product product)
         {
             _productDal.Delete(product);
+            return new SuccessResult(Messages.Deleted);
         }
 
         public IDataResult<Product> Get(Expression<Func<Product, bool>> filter)
         {
-           return new SuccessDataResult<Product>(_productDal.Get(filter));
+            return new SuccessDataResult<Product>(_productDal.Get(filter));
         }
 
         public IDataResult<List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour==19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductListed);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductListed);
         }
 
         public IDataResult<List<Product>> GetAll(Expression<Func<Product, bool>> filter = null)
@@ -78,9 +90,39 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
 
-        public void Update(Product product)
+        public IResult Update(Product product)
         {
             _productDal.Update(product);
+            return new SuccessResult(Messages.Updated);
         }
+        private IResult CheckIfProductCountOfCategoryCorrect(int categoryId)
+        {
+            var result = _productDal.GetAll(p => p.CategoryId == categoryId).Count;
+            if (result >= 10)
+            {
+                return new ErrorResult(Messages.ProductCountOfCategoryError);
+            }
+            return new SuccessResult();
+        }
+        private IResult CheckIfProductNameUniqueCorrect(string productName)
+        {
+            var result = _productDal.GetAll(p => p.ProductName == productName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.ProductNameAlreadyExists);
+            }
+            return new SuccessResult();
+
+        }
+        private IResult CheckIfCategoryLimitExceded()
+        {
+            var result = _categoryService.GetAll();
+            if (result.Data.Count>15)
+            {
+                return new ErrorResult(Messages.CategoryLimitExceded);
+            }
+            return new SuccessResult();
+        }
+       
     }
 }

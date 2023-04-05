@@ -21,6 +21,8 @@ namespace Business.DependencyResolvers.Autofac
             //SingleInstance çalışma zamanında bir kere adreste oluşturur ve ardından herkese aynı referenansı verir
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
             builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
+            builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
+            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
             //Özetle ilgili arayüzleri implemente eden sınıflara otomatik olarak bir interceptor (ara katman) eklemeyi sağlar.
             //projenin yürütülen derlemesi (assembly) elde edilir.
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();

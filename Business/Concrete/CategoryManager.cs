@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -34,9 +35,9 @@ namespace Business.Concrete
            return _categoryDal.Get(filter);
         }
 
-        public List<Category> GetAll()
+        public IDataResult<List<Category>> GetAll()
         {
-            return _categoryDal.GetAll();
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll());
         }
 
         public List<Category> GetAll(Expression<Func<Category, bool>> filter = null)
@@ -44,9 +45,9 @@ namespace Business.Concrete
             return _categoryDal.GetAll(filter);
         }
 
-        public Category GetById(int id)
+        public IDataResult<Category> GetById(int id)
         {
-            return _categoryDal.Get(c=>c.CategoryId == id);
+            return new SuccessDataResult<Category>(_categoryDal.Get(c=>c.CategoryId == id));
         }
 
         public void Update(Category entity)

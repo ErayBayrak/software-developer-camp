@@ -20,7 +20,7 @@ namespace Business.Abstract
         IDataResult<Product> Get(Expression<Func<Product, bool>> filter);
         IDataResult<Product> GetById(int id);
         IResult Add(Product entity);
-        void Update(Product entity);
-        void Delete(Product entity);
+        IResult Update(Product entity);
+        IResult Delete(Product entity);
     }
 }
