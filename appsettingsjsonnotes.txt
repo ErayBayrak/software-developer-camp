@@ -1,0 +1,4 @@
+Audience = kitle
+Issuer = uygulayan
+"AccessTokenExpiration": 10, => "verilen geçerlilik süresidir örn 10 dk "
+SecurityKey => tokený oluþtururken kullanacaðýmýz net core un kullanacaðý anahtarý oluþturur
