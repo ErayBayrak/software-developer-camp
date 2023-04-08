@@ -4,8 +4,10 @@ using Business.Abstract;
 using Business.Concrete;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +23,18 @@ namespace Business.DependencyResolvers.Autofac
             //SingleInstance çalışma zamanında bir kere adreste oluşturur ve ardından herkese aynı referenansı verir
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
             builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
+
             builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
             builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
+
+            builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+
+            //builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
+
             //Özetle ilgili arayüzleri implemente eden sınıflara otomatik olarak bir interceptor (ara katman) eklemeyi sağlar.
             //projenin yürütülen derlemesi (assembly) elde edilir.
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
