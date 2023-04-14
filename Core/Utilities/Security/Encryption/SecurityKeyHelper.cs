@@ -9,6 +9,7 @@ namespace Core.Utilities.Security.Encryption
 {
     public class SecurityKeyHelper
     {
+        //json'ın anlayabileceği şekilde securityKey byte[]'a çevrildi.
         public static SecurityKey CreateSecurityKey(string securityKey)
         {
             //Simetrik şifreleme, bilgileri şifrelemek ve deşifre etmek için yalnızca

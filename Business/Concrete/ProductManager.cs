@@ -58,14 +58,11 @@ namespace Business.Concrete
             return new SuccessDataResult<Product>(_productDal.Get(filter));
         }
 
-        public IDataResult<List<Product>> GetAll()
-        {
-            if (DateTime.Now.Hour == 19)
-            {
-                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
-            }
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductListed);
-        }
+        //public IDataResult<List<Product>> GetList()
+        //{
+           
+        //    return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductListed);
+        //}
 
         public IDataResult<List<Product>> GetAll(Expression<Func<Product, bool>> filter = null)
         {

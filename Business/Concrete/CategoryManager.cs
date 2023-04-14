@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -20,29 +21,31 @@ namespace Business.Concrete
             _categoryDal = categoryDal;
         }
 
-        public void Add(Category entity)
+        public IResult Add(Category entity)
         {
             _categoryDal.Add(entity);
+            return new SuccessResult(Messages.Added);
         }
 
-        public void Delete(Category entity)
+        public IResult Delete(Category entity)
         {
             _categoryDal.Delete(entity);
+            return new SuccessResult(Messages.Deleted);
         }
 
-        public Category Get(Expression<Func<Category, bool>> filter)
+        public IDataResult<Category> Get(Expression<Func<Category, bool>> filter)
         {
-           return _categoryDal.Get(filter);
+           return new SuccessDataResult<Category>(_categoryDal.Get(filter));
         }
 
-        public IDataResult<List<Category>> GetAll()
-        {
-            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll());
-        }
+        //public IDataResult<List<Category>> GetList()
+        //{
+        //    return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(),Messages.ProductListed);
+        //}
 
-        public List<Category> GetAll(Expression<Func<Category, bool>> filter = null)
+        public IDataResult<List<Category>> GetAll(Expression<Func<Category, bool>> filter = null)
         {
-            return _categoryDal.GetAll(filter);
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(filter));
         }
 
         public IDataResult<Category> GetById(int id)
@@ -50,9 +53,10 @@ namespace Business.Concrete
             return new SuccessDataResult<Category>(_categoryDal.Get(c=>c.CategoryId == id));
         }
 
-        public void Update(Category entity)
+        public IResult Update(Category entity)
         {
             _categoryDal.Update(entity);
+            return new SuccessResult(Messages.Updated);
         }
     }
 }

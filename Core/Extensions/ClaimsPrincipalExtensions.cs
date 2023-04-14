@@ -9,6 +9,7 @@ namespace Core.Extensions
 {
     public static class ClaimsPrincipalExtensions
     {
+        //o anki jwt ile gelen kişinin claimlerine erişmek için class ClaimsPrincipal
         public static List<string> Claims(this ClaimsPrincipal claimsPrincipal, string claimType)
         {
             var result = claimsPrincipal?.FindAll(claimType)?.Select(x => x.Value).ToList();

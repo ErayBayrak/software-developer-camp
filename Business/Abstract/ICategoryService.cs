@@ -11,12 +11,12 @@ namespace Business.Abstract
 {
     public interface ICategoryService
     {
-        IDataResult<List<Category>> GetAll();
+        //IDataResult<List<Category>> GetList();
         IDataResult<Category> GetById(int id);
-        List<Category> GetAll(Expression<Func<Category, bool>> filter = null);
-        Category Get(Expression<Func<Category, bool>> filter);
-        void Add(Category entity);
-        void Update(Category entity);
-        void Delete(Category entity);
+        IDataResult<List<Category>> GetAll(Expression<Func<Category, bool>> filter = null);
+        IDataResult<Category> Get(Expression<Func<Category, bool>> filter);
+        IResult Add(Category entity);
+        IResult Update(Category entity);
+        IResult Delete(Category entity);
     }
 }
