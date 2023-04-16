@@ -1,4 +1,5 @@
 ﻿using Castle.DynamicProxy;
+using Core.Aspects.Autofac.Transaction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Core.Utilities.Interceptors
             classAttributes.AddRange(methodAttributes);
             //Tüm sisteme loglamayı ekliyor
             //classAttributes.Add(new ExceptionLogAspect(typeof(FileLogger)));
-
+            classAttributes.Add(new TransactionScopeAspect());
             return classAttributes.OrderBy(x => x.Priority).ToArray();
         }
     }

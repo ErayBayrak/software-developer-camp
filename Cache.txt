@@ -1,0 +1,5 @@
+core->crosscuttingconcerns
+core->dependencyresolvers
+core->Utilities->IoC->ServiceTool
+core->Aspects->Autofac->Caching
+en sonda da managerda kullanmak istediðin metotta aspect kullanýlýyor.

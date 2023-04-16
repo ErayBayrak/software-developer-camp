@@ -1,0 +1,3 @@
+Örneðin bir banka uygulamasýnda para gönderme iþlemi yapýlacak bir kiþiden 10 lira giderken bir kiþiye 10 lira eklenmesi lazým
+Bunu transaction yöntemiyle yönetebiliriz.
+Core->Aspects->Transaction

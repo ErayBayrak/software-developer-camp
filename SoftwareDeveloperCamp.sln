@@ -18,6 +18,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CCB094B7-F4C0-46CB-8A5F-A1A9FF1AAC78}"
 	ProjectSection(SolutionItems) = preProject
 		appsettingsjsonnotes.txt = appsettingsjsonnotes.txt
+		Cache.txt = Cache.txt
+		Transaction.txt = Transaction.txt
 	EndProjectSection
 EndProject
 Global

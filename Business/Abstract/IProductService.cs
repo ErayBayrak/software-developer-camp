@@ -22,5 +22,7 @@ namespace Business.Abstract
         IResult Add(Product entity);
         IResult Update(Product entity);
         IResult Delete(Product entity);
+
+        IResult AddTransactionalTest(Product product);
     }
 }
