@@ -41,7 +41,7 @@ namespace Business.DependencyResolvers.Autofac
             //ilgili derlemedeki tüm sınıfların arayüzlerini uygulayıp uygulamadığı kontrol edilir. 
             // Ardından, AsImplementedInterfaces() metoduyla, ilgili sınıfların arayüzlerine bağımlı olarak kaydedilirler.
             //EnableInterfaceInterceptors(new ProxyGenerationOptions() { Selector = new AspectInterceptorSelector() }) metoduyla, bu sınıflara uygulanacak olan interceptor seçicisi belirlenir.
-            //AspectInterceptorSelector, ilgili sınıfların üzerinde belirli işlemleri gerçekleştirmek için kullanılacak bir interceptor'ları seçmek için kullanılır.
+            //AspectInterceptorSelector, ilgili sınıfların üzerinde belirli işlemleri gerçekleştirmek için kullanılacak interceptor'ları seçmek için kullanılır.
             //Son olarak, SingleInstance() metoduyla, her bir sınıfın yalnızca bir kez oluşturulmasını sağlayan tek örnek (singleton) moduna geçilir.
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()

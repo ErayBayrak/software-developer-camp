@@ -40,6 +40,10 @@ namespace WebAPI
         {
 
             services.AddControllers();
+
+            services.AddCors();
+
+
             //içerisinde data yoksa kullanýlýr.Örneðin bir e ticaret uygulamasýnda managerde tuttuðunuz bir sepette ürün bulunmasý halinde herkese ayný adres verileceði için birbirine karýþma durumu yaþanýr.
             //Constructorda IProductService istenirse constructora ProductManager adresi verir. IoC (Inversion of Control)
             //services.AddSingleton<IProductService, ProductManager>();
@@ -81,10 +85,10 @@ namespace WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
             }
+            app.UseRouting();
+            app.UseCors(builder=>builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseHttpsRedirection();
-
-            app.UseRouting();
 
             app.UseAuthentication();
 

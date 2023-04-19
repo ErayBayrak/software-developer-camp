@@ -21,6 +21,7 @@ namespace Core.Utilities.Interceptors
             classAttributes.AddRange(methodAttributes);
             //Tüm sisteme loglamayı ekliyor
             //classAttributes.Add(new ExceptionLogAspect(typeof(FileLogger)));
+            //tüm projeye transaction ekler
             classAttributes.Add(new TransactionScopeAspect());
             return classAttributes.OrderBy(x => x.Priority).ToArray();
         }
