@@ -10,7 +10,7 @@ namespace Core.Utilities.Security.Encryption
     public class SigningCredentialsHelper
     {
         //jwtlerin oluşturulabilmesi için sisteme girilmesi için elde bulunanlar 
-        //örn kullanıcı adı ve şifre bir credentialsdır.Burda ise bir key'e ihtiyaç 
+        //örn kullanıcı adı ve şifre bir credentialsdır.Burada ise bir key'e ihtiyaç 
         //var.Paramatre olarak verildi.
         //keyin imzalama nesnesini döndürecek bir fonk.
         public static SigningCredentials CreateSigningCredentials(SecurityKey securityKey)
